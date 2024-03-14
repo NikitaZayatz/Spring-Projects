@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <a  th:if="${#authentication.name != 'anonymousUser'}"  th:href="@{'/auth/homePage'}" class="button" th:text="${#authentication.name}"></a>
+ <title>SPA-процедуры</title>
+ <style type="text/css">
+   
+   .menu {
+   display: flex;
+   margin-top: 15px;
+}
+
+.menu li a {
+   color: black;
+   text-decoration: none;
+   text-transform: uppercase;
+   font-size: 18px;
+}
+   .button {
+       background-color: #025713;
+       color: #ffffff;
+       margin-left: 10px;
+       margin-top: auto;
+       border-radius: 10px;
+       padding: 10px 50px;
+       text-align: center;
+       text-decoration: none;
+       display: compact;
+       font-size: 16px;
+   }
+.menu li {
+   display: block;
+   margin: 0 auto;
+   }
+
+      ul, li {
+   padding: 0;
+   }
+
+.nav {
+   padding-top: 19px;
+}
+  body {
+   font-family: Arial, sans-serif;
+   background-color: #f2f2f2;
+  }
+  h1 {
+   text-align: center;
+   color: #333;
+   margin-top: 50px;
+  }
+  form {
+   max-width: 500px;
+   margin: 0 auto;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 0 10px rgba(0,0,0,0.3);
+   margin-top: 50px;
+  }
+  label {
+   display: block;
+   margin-bottom: 10px;
+   color: #333;
+  }
+  input[type="text"], input[type="email"], select {
+   width: 100%;
+   padding: 10px;
+   border-radius: 5px;
+   border: 1px solid #ccc;
+   margin-bottom: 20px;
+   box-sizing: border-box;
+  }
+  input[type="submit"] {
+   background-color: #333;
+   color: #fff;
+   padding: 10px 20px;
+   border-radius: 5px;
+   border: none;
+   cursor: pointer;
+  }
+ 
+ </style>
+</head>
+<body>
+   <header id="header" class="header">
+         <div class="nav">
+            <ul class="menu">
+               <li>
+                   <a href="index"><img th:src="@{/images/logo.png}">
+                  </a>
+               </li>
+               <li>
+                  <a href="registration">
+                     Регистрация
+                  </a>
+               </li>
+               <li>
+                  <a href="transfer">
+                     Трансфер
+                  </a>
+               </li>
+               <li>
+                  <a href="medicine">
+                     Медицина
+                  </a>
+               </li>
+               <li>
+                  <a href="spa">
+                     СПА-услуги
+                  </a>
+               </li>
+               <li>
+                  <a href="rooms">
+                     Заселение
+                  </a>
+               </li>
+               <li>
+                  <a href="sights">
+                     Достопримечательности
+                  </a>
+               </li>
+               <li>
+                  <a href="food">
+                     Меню ресторана
+                  </a>
+               </li>
+               <li>
+                  <a href="questions">
+                     Обратная связь
+                  </a>
+               </li>
+            </ul>
+         </div>
+   </header>
+ <h1>Заказ SPA-процедур</h1>
+
+   <form th:method="POST" th:action="@{/auth/spa}" th:object="${spa}">
+
+       <label for="date">Выберите дату:</label>
+       <input type="date" th:value="${date}"
+              id="date" name="date">
+
+       <label for="time">Выберите время:</label>
+       <input type="time" th:value="${time}"
+              id="time" name="time">
+
+
+       <label for="type">Выберите процедуру:</label>
+       <select  th:value="${type}"
+               id="type" name="type">
+           <option value="Массаж">Массаж</option>
+           <option value="Сауна">Сауна</option>
+           <option value="Пилинг">Пилинг</option>
+           <option value="Маска">Маска</option>
+       </select>
+
+       <label for="telephone">Ваш телефон:</label>
+       <input type="text" th:value="${telephone}"
+              id="telephone" name="telephone">
+
+
+       <input type="submit" value="Отправить">
+   </form>
+</body>
+</html>

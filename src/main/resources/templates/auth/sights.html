@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <a  th:if="${#authentication.name != 'anonymousUser'}"  th:href="@{'/auth/homePage'}" class="button" th:text="${#authentication.name}"></a>
+   <title>Достопримечательности</title>
+
+    <style type="text/css">
+
+   .menu {
+   display: flex;
+   margin-top: 15px;
+   }
+
+   .menu li a {
+   color: black;
+   text-decoration: none;
+   text-transform: uppercase;
+   font-size: 18px;
+   }
+
+   .menu li {
+   display: block;
+   margin: 0 auto;
+   }
+
+      ul, li {
+   padding: 0;
+   }
+
+   .nav {
+   padding-top: 19px;
+   }
+
+   body {
+   font-family: Arial, sans-serif;
+   background-color: #f2f2f2;
+   }
+
+   h1 {
+   text-align: center;
+   color: #333;
+   margin-top: 50px;
+   }
+
+   h2 {
+   color: #333;
+   margin-top: 30px;
+   }
+
+   p {
+   color: #666;
+   line-height: 1.5;
+   margin-top: 10px;
+   }
+
+   .container2 {
+   max-width: 800px;
+   margin: 0 auto;
+   padding: 30px;
+   background-color: #fff;
+   box-shadow: 0 0 10px rgba(0,0,0,0.2);
+   border-radius: 5px;
+   }
+
+   .row {
+   display: flex;
+   flex-wrap: wrap;
+   margin-top: 20px;
+   }
+
+   .col {
+   flex: 1;
+   margin-right: 20px;
+   }
+
+   .col:last-child {
+   margin-right: 0;
+   }
+
+   .card {
+   background-color: #f9f9f9;
+   padding: 20px;
+   box-shadow: 0 0 5px rgba(0,0,0,0.1);
+   border-radius: 5px;
+   margin-bottom: 10px;
+   }
+
+   .card h3 {
+   color: #333;
+   margin-top: 0;
+   }
+
+   .card p {
+   color: #666;
+   line-height: 1.5;
+   margin-top: 10px;
+   }
+   .button {
+      background-color: #025713;
+      color: #ffffff;
+      margin-left: 10px;
+      margin-top: auto;
+      border-radius: 10px;
+      padding: 10px 50px;
+      text-align: center;
+      text-decoration: none;
+      display: compact;
+      font-size: 16px;
+   }
+   input[type="submit"] {
+   margin-left: auto;
+   margin-right: auto;
+   background-color: #333;
+   color: #fff;
+   padding: 15px 30px;
+   border-radius: 5px;
+   cursor: pointer;
+   }
+
+
+
+   img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+   }
+
+
+   </style>
+</head>
+
+<body>
+
+<header id="header" class="header">
+         <div class="nav">
+            <ul class="menu">
+               <li>
+                   <a href="index"><img th:src="@{/images/logo.png}">
+                  </a>
+               </li>
+               <li>
+                  <a href="registration">
+                     Регистрация
+                  </a>
+               </li>
+               <li>
+                  <a href="transfer">
+                     Трансфер
+                  </a>
+               </li>
+               <li>
+                  <a href="medicine">
+                     Медицина
+                  </a>
+               </li>
+               <li>
+                  <a href="spa">
+                     СПА-услуги
+                  </a>
+               </li>
+               <li>
+                  <a href="rooms">
+                     Заселение
+                  </a>
+               </li>
+               <li>
+                  <a href="sights">
+                     Достопримечательности
+                  </a>
+               </li>
+               <li>
+                  <a href="food">
+                     Меню ресторана
+                  </a>
+               </li>
+               <li>
+                  <a href="questions">
+                     Обратная связь
+                  </a>
+               </li>
+            </ul>
+         </div>
+   </header>
+
+
+
+
+
+
+
+
+
+<h1>Достопримечательности и экскурсии в округе</h1>
+<div class="container2">
+
+    <form action="#"  th:each="attractions: ${attractionList}"  th:action="@{'/auth/sights/' + ${attractions.id}}" method="post">
+
+       <div class="col">
+          <div class="row">
+            <h2 th:text="${attractions.attraction_name}"/>
+            <p  th:text="${attractions.attraction_description}"/>
+             <img th:src="${attractions.image_url}" >
+            <input type="submit" value="Заказать">
+
+            </div>
+         </div>
+      </form>
+
+</div>
+
+
+
+</body>
+</html>

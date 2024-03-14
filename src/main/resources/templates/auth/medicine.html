@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/static/css/admin.css" th:href="@{/css/index.css}" >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <a  th:if="${#authentication.name != 'anonymousUser'}"  th:href="@{'/auth/homePage'}" class="button" th:text="${#authentication.name}"></a>
+  <title>Лечение</title>
+  <style type="text/css">
+
+    body {
+   font-family: Arial, sans-serif;
+   background-color: #f2f2f2;
+  }
+    .button {
+        background-color: #025713;
+        color: #ffffff;
+        margin-left: 10px;
+        margin-top: auto;
+        border-radius: 10px;
+        padding: 10px 50px;
+        text-align: center;
+        text-decoration: none;
+        display: compact;
+        font-size: 16px;
+    }
+.menu {
+  display: flex;
+  margin-top: 15px;
+}
+
+.menu li  a {
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+.menu li {
+  display: block;
+  margin: 0 auto;
+  }
+
+    ul, li {
+  padding: 0;
+  }
+
+.nav {
+  padding-top: 19px;
+}
+
+  h1 {
+   text-align: center;
+   color: #333;
+   font-size: 32px;
+  }
+
+  table {
+   margin: 0 auto;
+   border-collapse: collapse;
+   width: 80%;
+  }
+
+  th, td {
+   padding: 10px;
+   border: 1px solid #ccc;
+   text-align: center;
+  }
+
+  th {
+   background-color: #f2f2f2;
+  }
+
+  td button {
+   background-color: #333;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   padding: 8px 16px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 14px;
+   margin: 4px 2px;
+   cursor: pointer;
+  }
+
+  form {
+   max-width: 500px;
+   margin: 0 auto;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 0 10px rgba(0,0,0,0.3);
+   margin-top: 50px;
+  }
+
+  label {
+   display: block;
+   margin-bottom: 10px;
+   font-size: 18px;
+   color: #333;
+  }
+
+  input[type="text"], select, input[type="date"] {
+   width: 100%;
+   padding: 12px 20px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+   font-size: 16px;
+  }
+
+  input[type="submit"] {
+   background-color: #333;
+   color: white;
+   padding: 14px 20px;
+   margin-top: 20px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 18px;
+  }
+
+
+ </style>
+</head>
+
+<body>
+  <header id="header" class="header">
+      <div class="nav">
+        <ul class="menu">
+          <li>
+              <a href="index"><img th:src="@{/images/logo.png}">
+            </a>
+          </li>
+          <li>
+                  <a href="registration">
+                     Регистрация
+                  </a>
+               </li>
+               <li>
+                  <a href="transfer">
+                     Трансфер
+                  </a>
+               </li>
+          <li>
+            <a href="medicine">
+              Медицина
+            </a>
+          </li>
+          <li>
+            <a href="spa">
+              СПА-услуги
+            </a>
+          </li>
+          <li>
+            <a href="rooms">
+              Заселение
+            </a>
+          </li>
+          <li>
+            <a href="sights">
+              Достопримечательности
+            </a>
+          </li>
+          <li>
+            <a href="food">
+              Меню ресторана
+            </a>
+          </li>
+          <li>
+                  <a href="questions">
+                     Обратная связь
+                  </a>
+               </li>
+        </ul>
+      </div>
+  </header>
+
+  <h1>Расписание лечебных процедур</h1>
+
+ <table>
+  <tr>
+   <th>Длительность</th>
+   <th>Процедура</th>
+   <th>Врач</th>
+  </tr>
+
+  <tr th:each="procedure: ${procedureList}">
+   <td th:text="${procedure.procedure_time}"></td>
+   <td th:text="${procedure.location_from}"></td>
+   <td th:text="${procedure.doctor}"></td>
+  </tr>
+
+
+ </table>
+
+  <form   th:action="@{/auth/medicine}" th:method="POST"  th:object="${seance}">
+
+      <label for="procedure1">Выберите процедуру:</label>
+      <select id="procedure1" name="procedure1" th:field="*{procedure}">
+          <option  th:each="procedure1: ${procedureList}" th:text="${procedure1.location_from}" th:value="${procedure1.getId()}"></option>
+      </select>
+
+      <label for="seanceDate">Выберите дату:</label>
+      <input type="date" id="seanceDate"  th:field="*{seance_date}" name="seanceDate">
+
+
+      <label for="seanceTime">Выберите время:</label>
+      <select id="seanceTime" name="seanceTime" th:field="*{seance_time}">
+          <option  th:each="procedure: ${procedureList}"  th:text="${procedure.procedure_time}" th:value="${procedure.procedure_time}"></option>
+      </select>
+
+
+      <input type="submit" value="Отправить">
+  </form>
+</body>
+</html>

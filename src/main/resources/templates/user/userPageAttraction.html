@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style type="text/css">* {
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+    }
+    body {
+        display: flex;
+        min-height: 100vh;
+        padding: 0; margin: 0;
+        background: mediumturquoise;
+        font-family: Georgia;
+    }
+
+    #pgside {
+        width: 200px;
+        flex-shrink: 0;
+        transition: width 0.2s;
+        background: #283039;
+    }
+
+    #pgside #pguser {
+        display: flex;
+        align-items: center;
+        padding: 10px 5px;
+    }
+    #pgside #pguser img {
+        width: 50px;
+        margin-right: 5px;
+        border-radius: 50%
+    }
+
+
+    #pgside, #pgside a { color: #fff; }
+    #pgside a {
+        display: block;
+        padding: 20px;
+        width: 100%;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    #pgside a.current { background: #7c1919; }
+    #pgside a:hover { background: #9b2323; }
+
+
+    #pgside i.ico, #pgside i.txt { font-style: normal; }
+    #pgside i.ico {
+        font-size: 1.1em;
+        margin-right: 10px;
+    }
+
+    .newMenu{
+        font-size: 30px;
+    }
+
+    .menu-item h2 {
+        font-family: "Comic Sans MS";
+        font-size: 50px;
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .menu-item p {
+        font-family: "Comic Sans MS";
+        font-size: 40px;
+        margin-bottom: 0;
+        text-align: justify;
+    }
+
+
+
+
+    </style>
+</head>
+<body>
+
+<div id="pgside">
+    <div id="pguser">
+        <img src="">
+        <i class="txt" th:text="${#authentication.name}"></i>
+    </div>
+    <a onclick="history.back();">
+        <i class="ico">&#9733;</i>
+        <i class="txt">Back</i>
+    </a>
+    <a th:href="@{/logout}" th:method="POST">
+        <i class="ico">&#9733;</i>
+        <i class="txt">LogOut</i>
+    </a>
+
+    <a href="/auth/index" >
+        <i class="ico">&#9733;</i>
+        <i class="txt">MainPage</i>
+    </a>
+    <a href="userPage" >
+        <i class="ico">&#9733;</i>
+        <i class="txt">Profile</i>
+    </a>
+    <a href="userPageTransfer" >
+        <i class="ico">&#9728;</i>
+        <i class="txt">Трансфер</i>
+    </a>
+    <a href="userPageMedicine">
+        <i class="ico">&#9737;</i>
+        <i class="txt">Медицина</i>
+    </a>
+    <a href="userPageSpa">
+        <i class="ico">&#9728;</i>
+        <i class="txt">Спа-Услуги</i>
+    </a>
+    <a href="userPageRooms">
+        <i class="ico">&#9737;</i>
+        <i class="txt">Заселение</i>
+    </a>
+    <a href="userPageAttraction" class="current">
+        <i class="ico">&#9728;</i>
+        <i class="txt">Экскурсии</i>
+    </a>
+    <a href="userPageRestourant">
+        <i class="ico">&#9737;</i>
+        <i class="txt">Ресторан</i>
+    </a>
+    <a href="userPageQuestion">
+        <i class="ico">&#9728;</i>
+        <i class="txt">Ответы на вопросы</i>
+    </a>
+</div>
+
+
+<main class="newMenu">
+    <h1>Attractions</h1>
+    <div th:each="attraction: ${attractionList}">
+        <p  th:text="'название : '+${attraction.attraction_name}"/>
+        <p  th:text="'описание : '+${attraction.attraction_description}"/>
+    </div>
+</main>
+</body>
+</html>
+
+
+

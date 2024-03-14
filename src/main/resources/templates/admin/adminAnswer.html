@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style type="text/css">* {
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+    }
+    body {
+        display: flex;
+        min-height: 100vh;
+        padding: 0; margin: 0;
+        background: mediumturquoise;
+        font-family: Georgia;
+    }
+
+    #pgside {
+        width: 200px;
+        flex-shrink: 0;
+        transition: width 0.2s;
+        background: #283039;
+    }
+
+    #pgside #pguser {
+        display: flex;
+        align-items: center;
+        padding: 10px 5px;
+    }
+    #pgside #pguser img {
+        width: 50px;
+        margin-right: 5px;
+        border-radius: 50%
+    }
+
+
+    #pgside, #pgside a { color: #fff; }
+    #pgside a {
+        display: block;
+        padding: 20px;
+        width: 100%;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    #pgside a.current { background: #7c1919; }
+    #pgside a:hover { background: #9b2323; }
+
+
+    #pgside i.ico, #pgside i.txt { font-style: normal; }
+    #pgside i.ico {
+        font-size: 1.1em;
+        margin-right: 10px;
+    }
+
+    .menu2 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-left: 100px;
+        padding: 200px;
+        width: 300px;
+    }
+
+    .menu-item {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+        margin: 20px;
+        padding: 20px;
+        width: 100%;
+    }
+
+
+    .menu-item h2 {
+        font-family: "Comic Sans MS";
+        font-size: 50px;
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .menu-item p {
+        font-family: "Comic Sans MS";
+        width: auto;
+        font-size: 40px;
+    }
+
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+
+    </style>
+
+</head>
+<body>
+
+<div id="pgside">
+    <div id="pguser">
+        <img src="">
+        <i class="txt">MY ADMIN</i>
+    </div>
+    <a onclick="history.back();">
+        <i class="ico">&#9733;</i>
+        <i class="txt">Back</i>
+    </a>
+    <a href="#" th:href="@{/logout}">
+        <i class="ico">&#9733;</i>
+        <i class="txt">LogOut</i>
+    </a>
+
+    <a href="/auth/index" >
+        <i class="ico">&#9733;</i>
+        <i class="txt">MainPage</i>
+    </a>
+    <a href="admin">
+        <i class="ico">&#9733;</i>
+        <i class="txt">Изменение пользователя</i>
+    </a>
+    <a href="adminAddData" >
+        <i class="ico">&#9733;</i>
+        <i class="txt">Добавление данных в базу данных</i>
+    </a>
+    <a href="adminAnswer" class="current">
+        <i class="ico">&#9737;</i>
+        <i class="txt">Вопросы от пользователей</i>
+    </a>
+</div>
+
+<main id="pgmain">
+    <div class="menu2">
+        <form action="#"  th:each="communication: ${communicationList}" th:action="@{'/admin/adminAnswer/' + ${communication.id}}" method="post" th:object="${communication}">
+
+            <div class="menu-item"  >
+
+                <h2 th:text="${communication.person.name}"/>
+                <div> <p  th:text="${communication.question}"/></div>
+
+
+                <div><textarea  th:value="${answer}"
+                                id="answer" name="answer">
+
+        </textarea></div>
+
+                <div><input type="submit" value="Ответить"></div>
+
+            </div>
+
+        </form>
+    </div>
+
+</main>
+</body>
+</html>
